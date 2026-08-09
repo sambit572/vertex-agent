@@ -31,9 +31,10 @@ def web_search(query: str) -> str:
 
 
 def open_browser(url: str) -> str:
-    """Fetch a URL and return its content as clean Markdown."""
+    """Open a URL in the default browser AND return its content as clean Markdown."""
     if not url.startswith("http"):
         url = "https://" + url
+    os.startfile(url)  # actually opens it visibly in your browser
     return asyncio.run(_crawl(url))
 
 
@@ -72,7 +73,7 @@ TOOL_SCHEMAS = [
         "type": "function",
         "function": {
             "name": "open_browser",
-            "description": "Fetch and read the content of a specific URL.",
+            "description": "Open a specific URL in the browser (e.g. a GitHub PR page) and read its content. Use this for 'open', 'show', 'see', or 'view' requests.",
             "parameters": {
                 "type": "object",
                 "properties": {
